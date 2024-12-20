@@ -34,7 +34,7 @@ public class SecurityConfiguration {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/send").permitAll()
+                .requestMatchers("/api/v1/kafka/*").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
