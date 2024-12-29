@@ -10,6 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class AuthenticationService {
     private final UserRepository userRepository;
@@ -30,7 +32,7 @@ public class AuthenticationService {
 
     public User signup(RegisterUserDto input) {
         User user = new User();
-        user.setId(input.getId());
+        user.setId(UUID.randomUUID().hashCode()); //TODO: CHANGE THIS TO AN ACTUAL ID (OR NOT)
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
         user.setRole(input.getRole());
