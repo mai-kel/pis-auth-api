@@ -6,6 +6,8 @@ pipeline {
         NEXUS_URL = "127.0.0.1:8081"
         NEXUS_REPOSITORY = "system-biblioteczny-maven-nexus-repo"
         NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
+        DOCKER_IMAGE = "auth-api"
+        DOCKER_TAG = "${env.BUILD_NUMBER}"
     }
     stages {
         stage('Build') {
@@ -53,6 +55,17 @@ pipeline {
                 }
             }
         }        
+        stage('Docker Build and Deploy') {
+//             when {
+//                 expression {
+//                     env.GIT_BRANCH == 'origin/main'
+//                 }
+//             }
+            steps {
+                script {
+                    sh "docker-compose up --force-recreate"
+                }
+            }
+        }
     }
 }
-// pipeline test 6
