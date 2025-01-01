@@ -2,6 +2,7 @@ version: '3.8'
 
 networks:
   shared-network:
+    name: shared-network
     driver: bridge
 
 services:
@@ -60,16 +61,5 @@ services:
     depends_on:
       - postgres
       - kafka
-    networks:
-      - shared-network
-
-  nginx:
-    image: nginx
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - auth-api
     networks:
       - shared-network
