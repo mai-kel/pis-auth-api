@@ -2,6 +2,7 @@ version: '3.8'
 
 networks:
   shared-network:
+    name: shared-network
     driver: bridge
 
 services:
