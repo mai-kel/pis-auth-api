@@ -3,6 +3,7 @@ version: '3.8'
 networks:
   shared-network:
     name: shared-network
+    external: true
     driver: bridge
 
 services:
@@ -66,6 +67,7 @@ services:
 
   nginx:
     image: nginx
+    container_name: nginx
     ports:
       - "80:80"
     volumes:
