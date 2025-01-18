@@ -18,7 +18,7 @@ pipeline {
         stage('Deploy'){
             when {
                 expression {
-                    env.GIT_BRANCH == 'origin/master'
+                    env.GIT_BRANCH == 'origin/main'
                 }
             }
             steps {
@@ -56,11 +56,11 @@ pipeline {
             }
         }        
         stage('Docker Build and Deploy') {
-            when {
-                expression {
-                    env.GIT_BRANCH == 'origin/main'
-                }
-            }
+//             when {
+//                 expression {
+//                     env.GIT_BRANCH == 'origin/main'
+//                 }
+//             }
             steps {
                 script {
                     sh "docker-compose up --force-recreate -d"
