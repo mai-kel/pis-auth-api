@@ -4,7 +4,8 @@ package com.example.auth_api.services;
 import com.example.auth_api.dtos.LoginUserDto;
 import com.example.auth_api.dtos.RegisterUserDto;
 import com.example.auth_api.entities.User;
-import com .example.auth_api.repositories.UserRepository;
+import com.example.auth_api.repositories.UserRepository;
+import com.example.auth_api.errors.UserAlreadyExistsException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +32,10 @@ public class AuthenticationService {
     }
 
     public User signup(RegisterUserDto input) {
+        if (userRepository.existsByEmail(input.getEmail())) {
+            throw new UserAlreadyExistsException("User with this email already exists");
+        }
+
         User user = new User();
         user.setId(UUID.randomUUID().hashCode()); //TODO: CHANGE THIS TO AN ACTUAL ID (OR NOT)
         user.setEmail(input.getEmail());
