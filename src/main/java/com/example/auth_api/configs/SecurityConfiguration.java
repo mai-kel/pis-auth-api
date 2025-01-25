@@ -14,7 +14,6 @@ public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
 
     public SecurityConfiguration(
-            JwtAuthenticationFilter jwtAuthenticationFilter,
             AuthenticationProvider authenticationProvider
     ) {
         this.authenticationProvider = authenticationProvider;

@@ -7,9 +7,9 @@ networks:
     driver: bridge
 
 services:
-  postgres:
+  postgres_auth:
     image: postgres:15-alpine
-    container_name: postgres
+    container_name: postgres_auth
     environment:
       POSTGRES_USER: auth_user
       POSTGRES_PASSWORD: auth_password
@@ -51,7 +51,7 @@ services:
       dockerfile: Dockerfile
     container_name: auth-api
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/auth_db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_auth:5432/auth_db
       SPRING_DATASOURCE_USERNAME: auth_user
       SPRING_DATASOURCE_PASSWORD: auth_password
       KAFKA_BROKERS: kafka:29092
@@ -60,14 +60,15 @@ services:
     ports:
       - "8181:8005"
     depends_on:
-      - postgres
+      - postgres_auth
       - kafka
     networks:
       - shared-network
 
   nginx:
     image: nginx
-    container_name: nginx
+    container_name: nginx_auth
+    restart: always
     ports:
       - "80:80"
     volumes:

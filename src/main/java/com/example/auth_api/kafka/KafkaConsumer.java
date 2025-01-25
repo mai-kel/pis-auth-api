@@ -11,8 +11,12 @@ import org.springframework.stereotype.Service;
 public class KafkaConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumer.class);
-    @KafkaListener(topics = "users-events", groupId = "my-group")
-    public void consume(User user) {
-        LOGGER.info(String.format("Message received -> %s", user.toString()));
+//    @KafkaListener(topics = "users-events", groupId = "my-group")
+//    public void consume(User user) {
+//        LOGGER.info(String.format("Message received -> %s", user.toString()));
+//    }
+    @KafkaListener(topics = "books-events", groupId = "my-group")
+    public void consume(Object message){
+        LOGGER.info(String.format("Message received from topic -> %s", message.toString()));
     }
 }

@@ -50,7 +50,10 @@ public class AuthenticationController {
 
     @PostMapping("/verify")
     public ResponseEntity<Map<String, String>> verifyToken(@RequestHeader("Authorization") String authHeader) {
+        System.out.println("eeeeeee1");
+        System.out.println(authHeader);
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("hujnia1");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
@@ -59,12 +62,16 @@ public class AuthenticationController {
             String userId = jwtService.extractUserId(token);
             String userRole = jwtService.extractClaim(token, claims -> claims.get("userRole", String.class));
 
+            System.out.println(userId);
+            System.out.println(userRole);
+
             Map<String, String> response = new HashMap<>();
             response.put("userId", userId);
             response.put("userRole", userRole);
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
+            System.out.println(e);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
