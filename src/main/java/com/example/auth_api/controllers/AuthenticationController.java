@@ -50,10 +50,9 @@ public class AuthenticationController {
 
     @PostMapping("/verify")
     public ResponseEntity<Map<String, String>> verifyToken(@RequestHeader("Authorization") String authHeader) {
-        System.out.println("eeeeeee1");
+        System.out.println("Verify authheader:");
         System.out.println(authHeader);
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            System.out.println("hujnia1");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
