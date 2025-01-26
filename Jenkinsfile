@@ -63,7 +63,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh "docker-compose up --force-recreate -d"
+                    sh "docker-compose up --force-recreate -d --remove-orphans"
                 }
             }
         }
